@@ -44,7 +44,8 @@
     "react-icons": "^4.4.0",
     "react-markdown": "^8.0.3",
     "react-masonry-css": "^1.0.16",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "@mdx-js/react": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",

@@ -2,6 +2,15 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 
+// ----- DÉBUT DU CODE À COLLER -----
+//console.log("----- DEBUG GATSBY CONFIG -----");
+//console.log("NODE_ENV:", process.env.NODE_ENV);
+//console.log("STRAPI_API_URL from env:", process.env.STRAPI_API_URL);
+//console.log("STRAPI_TOKEN from env (exists?):", !!process.env.STRAPI_TOKEN); // Le '!!' transforme la valeur en booléen (true/false)
+//console.log("GATSBY_IS_PREVIEW from env:", process.env.GATSBY_IS_PREVIEW);
+//console.log("----- END DEBUG GATSBY CONFIG -----");
+// ----- FIN DU CODE À COLLER -----
+
 module.exports = {
   siteMetadata: {
     title: `Les Assembleurs`,
@@ -15,7 +24,7 @@ module.exports = {
     {
       resolve: "gatsby-source-strapi",
       options: {
-        apiURL: process.env.STRAPI_API_URL || "https://assembleurs.herokuapp.com",
+        apiUrl: process.env.STRAPI_API_URL || "https://assembleurs.herokuapp.com",
         accessToken: process.env.STRAPI_TOKEN,
         collectionTypes: [
           {

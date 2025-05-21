@@ -5,7 +5,7 @@ import { AnchorLink } from "gatsby-plugin-anchor-links";
 import { useStaticQuery, graphql } from "gatsby";
 import { motion } from "framer-motion";
 
-import Logos from "../../images/icons/Financement.png";
+import Logos from "../../images/icons/Financement-eu.png";
 import LogoCapsule from "../../images/icons/logo-assembleurs-capsule.png";
 import EyeImage from "../../images/icons/redeye-assembleurs.png";
 import ArrowImage from "../../images/icons/arrow-down-assembleurs.png";

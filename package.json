@@ -11,6 +11,7 @@
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
+    "postinstall": "patch-package",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
   },
@@ -56,7 +57,9 @@
     "@storybook/manager-webpack5": "^6.5.10",
     "@storybook/react": "^6.5.10",
     "@storybook/testing-library": "^0.0.13",
+    "ajv": "^8.17.1",
     "babel-loader": "^8.2.5",
-    "env-cmd": "^10.1.0"
+    "env-cmd": "^10.1.0",
+    "patch-package": "^8.0.0"
   }
 }

@@ -1,0 +1,155 @@
+diff --git a/node_modules/gatsby-source-strapi/lib/axiosInstance.js b/node_modules/gatsby-source-strapi/lib/axiosInstance.js
+index a9b3164..e8e7c7d 100644
+--- a/node_modules/gatsby-source-strapi/lib/axiosInstance.js
++++ b/node_modules/gatsby-source-strapi/lib/axiosInstance.js
+@@ -17,8 +17,16 @@ const createInstance = config => {
+     headers.authorization = `Bearer ${config.accessToken}`;
+   }
+ 
++    // ----- DÉBUT DE L'AJOUT POUR DEBUG axiosInstance.js -----
++  //console.log("----- DEBUG lib/axiosInstance.js -----");
++  //console.log("Config object received by createInstance:", JSON.stringify(config, null, 2)); // Affiche tout l'objet config
++  //console.log("Attempting to use config.apiUrl for baseURL:", config.apiUrl); // Affiche la valeur qu'on veut utiliser
++  //console.log("----- END DEBUG lib/axiosInstance.js -----");
++  // ----- FIN DE L'AJOUT POUR DEBUG axiosInstance.js -----
++
++
+   const instance = _axios.default.create({
+-    baseURL: config.apiURL,
++    baseURL: config.apiUrl,
+     headers
+   });
+ 
+diff --git a/node_modules/gatsby-source-strapi/lib/fetch.js b/node_modules/gatsby-source-strapi/lib/fetch.js
+index 25cbaa7..bc1ad55 100644
+--- a/node_modules/gatsby-source-strapi/lib/fetch.js
++++ b/node_modules/gatsby-source-strapi/lib/fetch.js
+@@ -17,6 +17,12 @@ var _cleanData = require("./clean-data");
+ 
+ const fetchStrapiContentTypes = async strapiConfig => {
+   const axiosInstance = (0, _axiosInstance.default)(strapiConfig);
++
++  //LOGS START HERE
++  //console.log("----- DEBUG fetchStrapiContentTypes AXIOS INSTANCE CONFIG -----");
++  //console.log("Axios Instance Defaults:", JSON.stringify(axiosInstance.defaults, null, 2));
++  //console.log("----- END DEBUG fetchStrapiContentTypes -----");
++
+   const [{
+     data: {
+       data: contentTypes
+@@ -88,6 +94,13 @@ const fetchEntity = async ({
+     } // Fetch default entity based on request options
+ 
+ 
++    // <--- AJOUT ICI (pour l'appel principal dans fetchEntity) ---
++//    console.log("----- DEBUG fetchEntity AXIOS REQUEST (Main) -----");
++//    console.log("Request Opts (url, params, etc.):", JSON.stringify(opts, null, 2));
++//    console.log("Axios Instance baseURL from defaults:", axiosInstance.defaults.baseURL);
++//    console.log("----- END DEBUG fetchEntity AXIOS REQUEST (Main) -----");
++    // <--- FIN AJOUT ---
++
+     const {
+       data
+     } = await axiosInstance(opts); // Fetch other localizations of this entry if there are any
+@@ -100,6 +113,13 @@ const fetchEntity = async ({
+           locale
+         }
+       });
++
++      // <--- AJOUT ICI (pour les appels de localisation dans fetchEntity, si tu veux être exhaustif) ---
++//       console.log("----- DEBUG fetchEntity AXIOS REQUEST (Localization) -----");
++//       console.log("Localization Opts:", JSON.stringify(localizationOpts, null, 2));
++//       console.log("----- END DEBUG fetchEntity AXIOS REQUEST (Localization) -----");
++      // <--- FIN AJOUT ---
++
+       return localizationResponse.data;
+     }); // Run queries in parallel
+ 
+@@ -112,6 +132,20 @@ const fetchEntity = async ({
+     //   `Failed to fetch data from Strapi ${opts.url} with ${JSON.stringify(opts)}`,
+     //   error,
+     // );
++
++// <--- AJOUT ICI (pour les erreurs dans fetchEntity) ---
++//    console.error("----- DEBUG fetchEntity AXIOS ERROR -----");
++//    console.error("Request Opts at error:", JSON.stringify(opts, null, 2)); // Quels étaient les opts au moment de l'erreur
++//    console.error("Error message:", error.message);
++//    if (error.isAxiosError && error.request) {
++//      // Tente d'afficher les détails de la requête Axios si disponibles
++//      // L'objet error.request peut être complexe, _options est une propriété interne parfois utile
++//      const requestDetails = error.request._options || { host: error.request.host, port: error.request.port, path: error.request.path, method: error.request.method };
++//      console.error("Axios Request details at error:", JSON.stringify(requestDetails, null, 2));
++//    }
++//    console.error("----- END DEBUG fetchEntity AXIOS ERROR -----");
++    // <--- FIN AJOUT ---
++
+     return [];
+   }
+ };
+@@ -147,6 +181,14 @@ const fetchEntities = async ({
+ 
+   try {
+     reporter.info(`Starting to fetch data from Strapi - ${opts.url} with ${JSON.stringify(opts.params)}`);
++    
++        // <--- AJOUT ICI (pour le premier appel dans fetchEntities) ---
++//    console.log("----- DEBUG fetchEntities AXIOS REQUEST (First Call) -----");
++//    console.log("Request Opts (url, params, etc.):", JSON.stringify(opts, null, 2));
++//    console.log("Axios Instance baseURL from defaults:", axiosInstance.defaults.baseURL);
++//    console.log("----- END DEBUG fetchEntities AXIOS REQUEST (First Call) -----");
++    // <--- FIN AJOUT ---
++    
+     const {
+       data: response
+     } = await axiosInstance(opts);
+@@ -164,6 +206,13 @@ const fetchEntities = async ({
+         options.params.pagination.page = page;
+         reporter.info(`Starting to fetch data from Strapi - ${options.url} with ${JSON.stringify(opts.paramsSerializer(opts.params))}`);
+ 
++        // <--- AJOUT ICI (pour les appels de pagination dans fetchEntities) ---
++//        console.log("----- DEBUG fetchEntities AXIOS REQUEST (Pagination) -----");
++//        console.log("Request Opts (Pagination):", JSON.stringify(pageOptions, null, 2)); // Utilise pageOptions
++//        console.log("Axios Instance baseURL from defaults (Pagination):", axiosInstance.defaults.baseURL);
++//        console.log("----- END DEBUG fetchEntities AXIOS REQUEST (Pagination) -----");
++        // <--- FIN AJOUT ---
++
+         try {
+           const {
+             data: {
+@@ -172,6 +221,18 @@ const fetchEntities = async ({
+           } = await axiosInstance(options);
+           return data;
+         } catch (err) {
++
++// LOG START HERE
++//          console.error("----- DEBUG fetchEntities AXIOS ERROR (Pagination) -----");
++//          console.error("Pagination Request Opts at error:", JSON.stringify(pageOptions, null, 2));
++//          console.error("Pagination Error message:", err.message);
++//          if (err.isAxiosError && err.request) {
++//            const requestDetails = err.request._options || { host: err.request.host, port: err.request.port, path: err.request.path, method: err.request.method };
++//            console.error("Pagination Axios Request details at error:", JSON.stringify(requestDetails, null, 2));
++//          }
++//          console.error("----- END DEBUG fetchEntities AXIOS ERROR (Pagination) -----");
++          // END HERE
++
+           reporter.panic(`Failed to fetch data from Strapi ${options.url}`, err);
+         }
+       })();
+@@ -182,6 +243,18 @@ const fetchEntities = async ({
+     }));
+     return cleanedData;
+   } catch (error) {
++
++    // <--- AJOUT ICI (pour les erreurs dans fetchEntities, premier appel) ---
++    //console.error("----- DEBUG fetchEntities AXIOS ERROR (First Call) -----");
++    //console.error("Request Opts at error (First Call):", JSON.stringify(opts, null, 2));
++    //console.error("Error message (First Call):", error.message);
++    //if (error.isAxiosError && error.request) {
++    //  const requestDetails = error.request._options || { host: error.request.host, port: error.request.port, path: error.request.path, method: error.request.method };
++    //  console.error("Axios Request details at error (First Call):", JSON.stringify(requestDetails, null, 2));
++    //}
++    //console.error("----- END DEBUG fetchEntities AXIOS ERROR (First Call) -----");
++    // <--- FIN AJOUT ---
++
+     reporter.panic(`Failed to fetch data from Strapi ${opts.url}`, error);
+     return [];
+   }

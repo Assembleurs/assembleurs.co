@@ -1,0 +1,15 @@
+La configuration actuelle (avec apiUrl dans gatsby-config.js et le patch) fonctionne.
+J'ai apporté ces modifications suite aux suggestions de Gemini qui affirme que ce serait l'orthographe appropriée
+pour les versions de gatsby-source-strapi compatibles avec Strapi v4 et plus.
+Après vérification, notamment sur https://www.npmjs.com/package/gatsby-source-strapi/,
+je doute de la véracité de cette information et de l'opportunité réelle de cette modification.
+
+Si, pour une raison quelconque, on souhaite supprimer le patch, il faudrait alors :
+
+1. Supprimer le fichier patches/gatsby-source-strapi+2.0.0.patch.
+2. Modifier gatsby-config.js pour revenir à 
+   apiURL: process.env.STRAPI_API_URL (revenir au L majuscule au lieu du l minuscule).
+3. S'assurer que dans le script \assembleurs.co\node_modules\gatsby-source-strapi\lib\axiosInstance.js, 
+   on ait bien l'orthographe (L majuscule) config.apiURL au lieu de config.apiUrl (l minuscule)
+4. S'assurer que STRAPI_API_URL dans les variables d'environnement (Vercel et local) est https://assembleurs.herokuapp.com.
+5. Tester le fonctionnement

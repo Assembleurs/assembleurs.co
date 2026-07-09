@@ -137,12 +137,12 @@ const QualiopiLogo = styled.img`
 const QualiopiText = styled.span`
   font-family: "Big Shoulders Display", cursive;
   font-weight: 600;
-  font-size: 0.95em;
+  font-size: 0.82em;
   color: #252d80;
-  line-height: 1.35;
+  line-height: 1.3;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  max-width: 220px;
+  letter-spacing: 0.4px;
+  max-width: 240px;
   strong {
     display: block;
     color: #ff4114;
@@ -234,7 +234,7 @@ const Footer = () => {
             alt="Qualiopi - processus certifié - République Française"
           />
           <QualiopiText>
-            Certification qualité délivrée pour la catégorie
+            La certification qualité a été délivrée au titre de la catégorie d'action suivante :
             <strong>Actions de formation</strong>
           </QualiopiText>
         </QualiopiBadge>

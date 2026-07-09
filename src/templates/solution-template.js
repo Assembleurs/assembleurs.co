@@ -20,6 +20,12 @@ const Wrapper = styled.section`
   }
 `;
 
+const CertifBox = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+`;
+
 const CertifLink = styled.a`
   display: inline-block;
   font-family: "Big Shoulders Display", cursive;
@@ -27,16 +33,16 @@ const CertifLink = styled.a`
   font-size: 1em;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #ff4114;
+  color: #ffffff;
+  background-color: #ff4114;
   border: 2px solid #ff4114;
-  padding: 10px 20px;
-  margin-top: 10px;
-  margin-bottom: 30px;
+  border-radius: 8px;
+  padding: 12px 28px;
   text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
   &:hover {
-    background-color: #ff4114;
-    color: #ffffff;
-    transition: 0.3s;
+    background-color: transparent;
+    color: #ff4114;
   }
 `;
 
@@ -89,13 +95,15 @@ const SolutionTemplate = (props) => {
               </SolutionMarkdown>
             )}
             {props.data.strapiSolution.slug === "catalogue-de-formation-a-destination-des-mediateurs-et-conseillers-numeriques" && (
-              <CertifLink
-                href="/certificat_qualiopi_les_assembleurs.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Consulter notre certificat Qualiopi
-              </CertifLink>
+              <CertifBox>
+                <CertifLink
+                  href="/certificat_qualiopi_les_assembleurs.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Consulter notre certificat Qualiopi
+                </CertifLink>
+              </CertifBox>
             )}
           </SectionWrap>
         </Wrapper>

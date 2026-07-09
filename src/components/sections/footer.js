@@ -111,10 +111,10 @@ const Image = styled.img`
 const QualiopiBadge = styled.a`
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 42px;
   background-color: #ffffff;
-  border-radius: 16px;
-  padding: 18px 28px;
+  border-radius: 18px;
+  padding: 28px 40px;
   text-decoration: none;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -128,7 +128,7 @@ const QualiopiBadge = styled.a`
 `;
 
 const QualiopiLogo = styled.img`
-  width: 155px;
+  width: 195px;
   height: auto;
   flex-shrink: 0;
   display: block;
@@ -137,12 +137,12 @@ const QualiopiLogo = styled.img`
 const QualiopiText = styled.span`
   font-family: "Big Shoulders Display", cursive;
   font-weight: 600;
-  font-size: 0.82em;
+  font-size: 0.78em;
   color: #252d80;
-  line-height: 1.3;
+  line-height: 1.35;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
-  max-width: 240px;
+  letter-spacing: 0.3px;
+  max-width: 250px;
   strong {
     display: block;
     color: #ff4114;

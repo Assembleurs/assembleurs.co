@@ -135,13 +135,13 @@ const QualiopiLogo = styled.img`
 `;
 
 const QualiopiText = styled.span`
-  font-family: "Big Shoulders Display", cursive;
-  font-weight: 600;
-  font-size: 0.66em;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 0.72em;
   color: #252d80;
-  line-height: 1.35;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
+  line-height: 1.45;
+  text-transform: none;
+  letter-spacing: 0;
   max-width: 220px;
   strong {
     display: block;
